@@ -15,6 +15,7 @@
  */
 package com.seniru.wpm_checker;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -31,6 +32,9 @@ public class CheckerGUI extends javax.swing.JFrame {
     protected static boolean isCounting;
     private static boolean hasStarted;
     private static Counter counter;
+    private static StatDisplayer sd;
+    protected static ArrayList<Double> wpmsec;
+    protected static int addedIndex = 0;
     
     
     /**
@@ -43,6 +47,8 @@ public class CheckerGUI extends javax.swing.JFrame {
             secs = 0;
             isCounting = false;
             hasStarted = false;
+            wpmsec = new ArrayList();
+            sd = new StatDisplayer();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(CheckerGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -168,11 +174,14 @@ public class CheckerGUI extends javax.swing.JFrame {
             primary.setText("Stop");
             secondary.setText("Pause");
         } else {
+            counter = null;
             isCounting = false;
-            secs = 0;
             hasStarted = false;
+            sd.displayStats(secs, txtArea.getText(), wpmsec);                
+            secs = 0;
             txtArea.setText("");
             primary.setText("Start");
+            wpmsec = new ArrayList<>();
         }     
         secondary.setEnabled(hasStarted && isCounting);
         txtArea.setEnabled(hasStarted && isCounting);

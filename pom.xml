@@ -5,6 +5,13 @@
     <artifactId>WPM-Checker</artifactId>
     <version>1.1-alpha</version>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>org.knowm.xchart</groupId>
+            <artifactId>xchart</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+    </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>12</maven.compiler.source>

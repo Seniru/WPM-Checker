@@ -29,9 +29,11 @@ public class Counter extends Thread {
             try {
                 Thread.sleep(1000);
                 secs++;
+                wpmsec.add(WPM.getSpeed(txtArea.getText(), secs));
                 time.setText("Elapsed time: " + Formatter.formatTime(secs));
                 words.setText("Word count: " + WPM.getWords(txtArea.getText()).length);
                 wpmScore.setText("WPM: " + Formatter.formatDoubles(WPM.getSpeed(txtArea.getText(), secs)) + " WPM");
+                addedIndex = txtArea.getText().length();
             } catch (InterruptedException ex) {
                 // ignore
             }
