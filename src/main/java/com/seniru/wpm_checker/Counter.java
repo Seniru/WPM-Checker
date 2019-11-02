@@ -25,14 +25,13 @@ public class Counter extends Thread {
 
     @Override
     public void run() {
-        System.out.println("came here");
         do {
             try {
                 Thread.sleep(1000);
                 secs++;
-                time.setText("Elapsed time: " + secs + "s");
+                time.setText("Elapsed time: " + Formatter.formatTime(secs));
                 words.setText("Word count: " + WPM.getWords(txtArea.getText()).length);
-                wpmScore.setText("WPM: " + WPM.getSpeed(txtArea.getText(), secs) + "WPM");
+                wpmScore.setText("WPM: " + Formatter.formatDoubles(WPM.getSpeed(txtArea.getText(), secs)) + " WPM");
             } catch (InterruptedException ex) {
                 // ignore
             }

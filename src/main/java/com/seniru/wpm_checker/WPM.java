@@ -23,7 +23,7 @@ package com.seniru.wpm_checker;
 public class WPM {
     
     public static double getSpeed(String chunk, int secs) {
-        return getWords(chunk).length / getMinutes(secs);
+        return getWords(chunk).length / ((secs == 0 ? getMinutes(1) : getMinutes(secs)));
     }
     
     public static String[] getWords(String chunk) {
