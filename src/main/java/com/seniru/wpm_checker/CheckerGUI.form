@@ -37,9 +37,9 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="567" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="toggleBtn" min="-2" pref="150" max="-2" attributes="0"/>
+                              <Component id="primary" min="-2" pref="150" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="reset" min="-2" pref="150" max="-2" attributes="0"/>
+                              <Component id="secondary" min="-2" pref="150" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="wpmScore" min="-2" pref="131" max="-2" attributes="0"/>
                           </Group>
@@ -59,9 +59,9 @@
               <Component id="jScrollPane1" min="-2" pref="199" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="toggleBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="primary" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="wpmScore" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="reset" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="secondary" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
@@ -90,12 +90,12 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="toggleBtn">
+    <Component class="javax.swing.JButton" name="primary">
       <Properties>
         <Property name="text" type="java.lang.String" value="Start"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toggleBtnActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="primaryActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="wpmScore">
@@ -106,13 +106,13 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="12"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="reset">
+    <Component class="javax.swing.JButton" name="secondary">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Reset"/>
+        <Property name="text" type="java.lang.String" value="Pause"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="secondaryActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">

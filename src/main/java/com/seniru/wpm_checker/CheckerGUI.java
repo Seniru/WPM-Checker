@@ -29,6 +29,7 @@ public class CheckerGUI extends javax.swing.JFrame {
     
     protected static int secs;
     protected static boolean isCounting;
+    private static boolean hasStarted;
     private static Counter counter;
     
     
@@ -41,6 +42,7 @@ public class CheckerGUI extends javax.swing.JFrame {
             initComponents();
             secs = 0;
             isCounting = false;
+            hasStarted = false;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(CheckerGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -58,9 +60,9 @@ public class CheckerGUI extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtArea = new javax.swing.JTextArea();
-        toggleBtn = new javax.swing.JButton();
+        primary = new javax.swing.JButton();
         wpmScore = new javax.swing.JLabel();
-        reset = new javax.swing.JButton();
+        secondary = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         words = new javax.swing.JLabel();
         time = new javax.swing.JLabel();
@@ -74,20 +76,20 @@ public class CheckerGUI extends javax.swing.JFrame {
         txtArea.setEnabled(false);
         jScrollPane1.setViewportView(txtArea);
 
-        toggleBtn.setText("Start");
-        toggleBtn.addActionListener(new java.awt.event.ActionListener() {
+        primary.setText("Start");
+        primary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toggleBtnActionPerformed(evt);
+                primaryActionPerformed(evt);
             }
         });
 
         wpmScore.setText("WPM: -");
 
-        reset.setText("Reset");
-        reset.setEnabled(false);
-        reset.addActionListener(new java.awt.event.ActionListener() {
+        secondary.setText("Pause");
+        secondary.setEnabled(false);
+        secondary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                resetActionPerformed(evt);
+                secondaryActionPerformed(evt);
             }
         });
 
@@ -129,9 +131,9 @@ public class CheckerGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(toggleBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(primary, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(secondary, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(wpmScore, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -145,9 +147,9 @@ public class CheckerGUI extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(toggleBtn)
+                    .addComponent(primary)
                     .addComponent(wpmScore)
-                    .addComponent(reset))
+                    .addComponent(secondary))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(8, Short.MAX_VALUE))
@@ -157,38 +159,46 @@ public class CheckerGUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     
-    private void toggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleBtnActionPerformed
-        if (!isCounting) {
+    private void primaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_primaryActionPerformed
+        if (!hasStarted) {
+            hasStarted = true;
+            isCounting = true;
             counter = new Counter();
             counter.start();
-            toggleBtn.setText("Pause");
-            //time.setText("Elapsed time: " + secs + "s");
-            words.setText("Word count: " + WPM.getWords(txtArea.getText()).length);
-            wpmScore.setText("WPM: " + WPM.getSpeed(txtArea.getText(), secs) + "WPM");
+            primary.setText("Stop");
+            secondary.setText("Pause");
         } else {
-            toggleBtn.setText("Start/Resume");
-            counter = null;
-        }
-        isCounting = !isCounting;
-        txtArea.setEnabled(isCounting);
-        reset.setEnabled(!isCounting);
-    }//GEN-LAST:event_toggleBtnActionPerformed
+            isCounting = false;
+            secs = 0;
+            hasStarted = false;
+            txtArea.setText("");
+            primary.setText("Start");
+        }     
+        secondary.setEnabled(hasStarted && isCounting);
+        txtArea.setEnabled(hasStarted && isCounting);
+    }//GEN-LAST:event_primaryActionPerformed
 
-    private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
-        isCounting = false;
-        secs = 0;
-        toggleBtn.setText("Start");
-        txtArea.setText("");
-        reset.setEnabled(false);
-    }//GEN-LAST:event_resetActionPerformed
+    private void secondaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secondaryActionPerformed
+        if (isCounting) {
+            isCounting = false;
+            counter = null;
+            secondary.setText("Resume");
+        } else {
+            isCounting = true;
+            counter = new Counter();
+            counter.start();
+            secondary.setText("Pause");
+        }     
+        txtArea.setEnabled(isCounting);
+    }//GEN-LAST:event_secondaryActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JButton reset;
+    private javax.swing.JButton primary;
+    private javax.swing.JButton secondary;
     protected static javax.swing.JLabel time;
-    private javax.swing.JButton toggleBtn;
     protected static javax.swing.JTextArea txtArea;
     protected static javax.swing.JLabel words;
     protected static javax.swing.JLabel wpmScore;
