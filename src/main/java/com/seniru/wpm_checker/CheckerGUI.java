@@ -15,6 +15,11 @@
  */
 package com.seniru.wpm_checker;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author Seniru
@@ -31,9 +36,14 @@ public class CheckerGUI extends javax.swing.JFrame {
      * Creates new form CheckerGUI
      */
     public CheckerGUI() {
-        initComponents();
-        secs = 0;
-        isCounting = false;
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            initComponents();
+            secs = 0;
+            isCounting = false;
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(CheckerGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
