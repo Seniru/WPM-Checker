@@ -15,7 +15,7 @@
  */
 package com.seniru.wpm_checker;
 
-import static com.seniru.wpm_checker.CheckerGUI.secs;
+import static com.seniru.wpm_checker.CheckerGUI.*;
 
 /**
  *
@@ -29,14 +29,14 @@ public class Counter extends Thread {
         do {
             try {
                 Thread.sleep(1000);
-                CheckerGUI.secs++;
-                CheckerGUI.time.setText("Elapsed time: " + CheckerGUI.secs + "s");
-                CheckerGUI.words.setText("Word count: " + WPM.getWords(CheckerGUI.txtArea.getText()).length);
-                CheckerGUI.wpmScore.setText("WPM: " + WPM.getSpeed(CheckerGUI.txtArea.getText(), CheckerGUI.secs) + "WPM");
+                secs++;
+                time.setText("Elapsed time: " + secs + "s");
+                words.setText("Word count: " + WPM.getWords(txtArea.getText()).length);
+                wpmScore.setText("WPM: " + WPM.getSpeed(txtArea.getText(), secs) + "WPM");
             } catch (InterruptedException ex) {
                 // ignore
             }
-        } while (CheckerGUI.isCounting);
+        } while (isCounting);
     }
 
 }
